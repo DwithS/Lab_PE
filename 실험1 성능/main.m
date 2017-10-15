@@ -1,4 +1,4 @@
-% 메인 프로그램
+% 과제2 메인 프로그램
 clear all; clc;
 
 % parfor을 사용하기 위해 p = parpool(쓰레드 숫자)를 썼다.
@@ -58,8 +58,7 @@ for i = 1:sizeofdataLists
 end
 
 ppm = ParforProgMon('진행도... ', 1)
-for k = 9:9
-% for k = 1:sizeofdataLists
+parfor k = 1:sizeofdataLists
     data = load(resultCell{k,1});
     
     temp = ["0" "0" "0" "0"];

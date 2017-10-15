@@ -28,4 +28,4 @@ for i = 1: sizeofResult
     msvm(1,i) = str2num(char(strtok(resultCell{i,8}, '¡¾')));
 end
 
-plot(instance,);
+% plot(instance,);
