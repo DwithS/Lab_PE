@@ -46,7 +46,7 @@ for k = 1:sizeofdataLists
         temp = SeqGen(testNum,size(data.X,1),portion);
         resultCell(k,4)= {temp};
         if (SAVE_SEQ==true)
-            save(seq_file,'temp');
+            save(seq_file,'data');
         end        
     end
 end
