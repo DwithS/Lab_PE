@@ -1,8 +1,8 @@
-% 과제2 메인 프로그램
+% 과제1 메인 프로그램
 clear all; clc;
 
 % parfor을 사용하기 위해 p = parpool(쓰레드 숫자)를 썼다.
-p = parpool(4); 
+p = parpool(12); 
 
 warning off;
 
