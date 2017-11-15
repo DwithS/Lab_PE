@@ -24,7 +24,7 @@ sim_num = size(sim_seq, 2);
 res = zeros(sim_num, 1);
 
 
-for i = 1:sim_num
+parfor i = 1:sim_num
     idx = sim_seq(:,i);
     
     tr_data = X(idx,:);
@@ -45,7 +45,7 @@ end
 function res = nbClassifier(data, answer ,sim_seq)
 sim_num = size(sim_seq, 2);
 res = zeros(sim_num, 1);
-for i = 1:sim_num
+parfor i = 1:sim_num
     tr_data = data(sim_seq(:,i), :);
     tr_ans = answer(sim_seq(:,i), :);
     ts_data = data(~sim_seq(:,i),:);
@@ -69,7 +69,7 @@ function res = dtClassifier(data, answer ,sim_seq)
 sim_num = size(sim_seq, 2);
 res = zeros(sim_num, 1);
 
-for i = 1:sim_num
+parfor i = 1:sim_num
     tr_data = data(sim_seq(:,i), :);
     tr_ans = answer(sim_seq(:,i), :);
     ts_data = data(~sim_seq(:,i),:);
@@ -91,7 +91,7 @@ function res = mSvmClassifier(data, answer ,sim_seq)
 
 sim_num = size(sim_seq, 2);
 res = zeros(sim_num, 1);
-for i = 1:sim_num
+parfor i = 1:sim_num
     tr_data = data(sim_seq(:,i), :);
     tr_ans = answer(sim_seq(:,i), :);
     

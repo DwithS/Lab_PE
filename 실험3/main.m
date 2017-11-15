@@ -2,9 +2,11 @@
 
 
 
-clear all; clc;
+clear ; clc;
 
-
+NUM_OF_ALGO=4;
+NUM_OF_BIRD = 10;
+PSO_Threshold=1000;
 
 p = gcp('nocreate'); % If no pool, do not create new one.
 if isempty(p)
@@ -15,58 +17,76 @@ else
     p = parpool(feature('numcores')); 
 end
 
+
+
 dataFileLists = getDataLists('data');
 sizeofdataLists = length(dataFileLists);
 
-% Load 나 Gen 밖에 안된다.
+% Load 나 Gen 밖에 안된다. 딴거 쓰면 에러남
 sequence = Sequence('Load',dataFileLists);
 
 
 
+h = waitbar(0, 'Please wait...');
+steps = sizeofdataLists * NUM_OF_ALGO;
+
+Result = Cell(sizeofdataLists*NUM_OF_ALGO,4);
 
 
+tic
+for eachDataSet=1:sizeofdataLists
+    disp(eachDataSet +"번째 데이터 셋");
+    data = load(strcat(dataFileLists(eachDataSet).folder,"\",dataFileLists(eachDataSet).name));
+    for eachAlgo=1:NUM_OF_ALGO
+%         disp(eachAlgo +"번째 알고리즘");
+%         features = data.X;
+        
+        TTEESSTT = true;
 
+        
+        MAX = 0;
 
+        littlebird(NUM_OF_BIRD,1) = Bird;
+            
+        for i = 1:NUM_OF_BIRD
+            littlebird(i) = setData(littlebird(i),data,eachAlgo,sequence{eachDataSet,1});
+        end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% % % % 앞부분 임시로 작성중
-DDDend = 9999;
-for k = 1:DDDend
-    data = load(strcat(dataFileLists(k).folder,"\",dataFileLists(k).name));
-    features = data.X;
-    
-    sim_seq = crossvalind('HoldOut',length(features), 0.2);
-    sim_seq = transpose(logical(sim_seq));
-    
-    tr_data = features(:,sim_seq);
-    
-    a=1;
-
+        Counter=1;
+        while TTEESSTT
+            temporal_result = zeros(NUM_OF_BIRD);
+            for i = 1:NUM_OF_BIRD
+                temporal_result(i) = getResult(littlebird(i));
+            end 
+            
+            
+            result = classifer(features, data.Y , sequence{eachDataSet,1},eachAlgo);
+            result_mean = mean(result(:,1));
+            if MAX<result_mean
+                MAX = result_mean;
+            end
+            
+            Counter=Counter+1;
+            if Counter>PSO_Threshold
+               TTEESSTT = false;  
+            end
+        end
+        
+        tempNum = (eachAlgo + (eachDataSet-1)*NUM_OF_ALGO);
+        Result(tempNum,1) = dataFileLists(eachDataSet).name;
+        Result(tempNum,2) = eachDataSet;
+        Result(tempNum,3) = ;
+        Result(tempNum,4) = ;
+        
+        text = dataFileLists(eachDataSet).name +"("+eachDataSet+") "+ eachAlgo+"번째 알고리즘 ("+tempNum +"/"+steps+") " + toc;
+        waitbar(tempNum/steps,h,sprintf(text));
+%         disp("max = " + MAX);
+        disp(dataFileLists(eachDataSet).name+"__"+ eachAlgo+"__"+MAX);
+    end
+%     disp("to NeXt Dataset " + (eachDataSet+1));
 end
-% % % % 
 
-
-
+% close(h);
 
 
 
@@ -94,8 +114,18 @@ end
 %     ppm.increment();
 % end
 
-
-
-
-
 delete(p);
+
+
+
+function res = getModifedFeature(features)
+
+    temp = size(features);
+    sim_seq = crossvalind('HoldOut',temp(2), 0.8);
+    sim_seq = transpose(logical(sim_seq));
+%     disp(size(sim_seq) +" ____ "+size(features));
+    
+    
+    res = features(:,sim_seq);
+    
+end

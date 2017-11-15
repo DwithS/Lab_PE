@@ -23,7 +23,7 @@ for k = 1:sizeofdataLists
         try
             temp = load(seq_file);
         catch
-            disp("Canno load such file : "+seq_file);
+            disp("Cannot load such file : "+seq_file);
         end
         result(k,1)= {temp.data};
     elseif strcmp(choice ,'Gen')
@@ -45,13 +45,13 @@ end
 
 
 
-function sim_seq = SeqGen(sim_num, sample_num, PORTION)
+function sim_seq = SeqGen(sim_num, sample_num, portion)
 % sim_num = 실행할 시뮬레이션 숫자
 % sample_num = 샘플 숫자
-% PORTION = 비율
+% portion = 비율
 sim_seq=zeros(sample_num, sim_num);
 for i = 1:sim_num
-    sim_seq(:,i) = crossvalind('HoldOut',sample_num, PORTION);
+    sim_seq(:,i) = crossvalind('HoldOut',sample_num, portion);
 end
 sim_seq = logical(sim_seq);
 end
