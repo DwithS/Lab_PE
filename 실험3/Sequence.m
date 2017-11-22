@@ -2,10 +2,11 @@ function result = Sequence(choice, dataLists)
 % sequences are saved and loaded from 'seq' folder
 % make or load data Sequence
 % choice should be 'Load' or 'Gen'
+CONFIG = config
 
 SEQ_PATH = 'seq';
-TESTNUM = 50;
-PORTION = 0.2;
+TESTNUM = CONFIG.TESTNUM;
+PORTION = CONFIG.TESTPORTION;
 
 
 sizeofdataLists = length(dataLists);

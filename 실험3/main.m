@@ -4,9 +4,10 @@
 
 clear ; clc;
 
+CONFIG = config;
 NUM_OF_ALGO=4;
 NUM_OF_BIRD = 10;
-PSO_Threshold=1000;
+PSO_Threshold=CONFIG.PSO_THRESHOLD;
 
 p = gcp('nocreate'); % If no pool, do not create new one.
 if isempty(p)
@@ -73,10 +74,10 @@ for eachDataSet=1:sizeofdataLists
         end
         
         tempNum = (eachAlgo + (eachDataSet-1)*NUM_OF_ALGO);
-        Result(tempNum,1) = dataFileLists(eachDataSet).name;
-        Result(tempNum,2) = eachDataSet;
-        Result(tempNum,3) = ;
-        Result(tempNum,4) = ;
+        Result(tempNum,1) = dataFileLists(eachDataSet).name;    %데이터 이름
+        Result(tempNum,2) = eachDataSet;                        %데이터 번호?
+        Result(tempNum,3) = ;                                   %최선의 조합
+        Result(tempNum,4) = ;                                   %확률
         
         text = dataFileLists(eachDataSet).name +"("+eachDataSet+") "+ eachAlgo+"번째 알고리즘 ("+tempNum +"/"+steps+") " + toc;
         waitbar(tempNum/steps,h,sprintf(text));
@@ -90,42 +91,4 @@ end
 
 
 
-% answer = cell(11,1);
-% for i = 1:sizeofdataLists
-%    answer(i,1) = {["0" "0" "0" "0"]};
-% end
-% 
-% 
-% ppm = ParforProgMon('진행도... ', sizeofdataLists)
-% 
-% parfor k = 1:sizeofdataLists
-%     data = load(strcat(dataFileLists(k).folder,"\",dataFileLists(k).name));
-%     
-%     temp = ["0" "0" "0" "0"];
-%     for i = 1:4
-%         
-%         result = classifer(data.X, data.Y , sequence{k,1},i);
-%         resultA = strcat(num2str(mean(result(:,1))), "±", num2str(std(result(:,1))));
-%         temp(i) = resultA;
-%         
-%     end
-%     answer(k) = {temp};
-%     
-%     ppm.increment();
-% end
-
 delete(p);
-
-
-
-function res = getModifedFeature(features)
-
-    temp = size(features);
-    sim_seq = crossvalind('HoldOut',temp(2), 0.8);
-    sim_seq = transpose(logical(sim_seq));
-%     disp(size(sim_seq) +" ____ "+size(features));
-    
-    
-    res = features(:,sim_seq);
-    
-end
