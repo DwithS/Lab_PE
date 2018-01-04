@@ -28,7 +28,7 @@ end
 
 
 FriedmanResult = myFriedman(sizeofdataLists, meanRank(1),meanRank(2),meanRank(3),meanRank(4));
-BonferroniResult = myBonferroni(sizeofdataLists, meanRank(1),meanRank(2),meanRank(3),meanRank(4));
+BonferroniResult = myBonferroni(sizeofdataLists, meanRank);
 
 
 function result = getRank(rank)

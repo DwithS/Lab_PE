@@ -2,7 +2,7 @@
 clear all; clc;
 
 % parfor을 사용하기 위해 p = parpool(쓰레드 숫자)를 썼다.
-p = parpool(12); 
+p = parpool(6); 
 
 warning off;
 
