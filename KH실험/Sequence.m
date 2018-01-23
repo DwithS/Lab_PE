@@ -2,7 +2,7 @@ function result = Sequence(choice, dataLists)
 % sequences are saved and loaded from 'seq' folder
 % make or load data Sequence
 % choice should be 'Load' or 'Gen'
-CONFIG = config;
+CONFIG = KH_config;
 
 SEQ_PATH = 'seq';
 DATA_PATH ='data';
@@ -12,10 +12,6 @@ PORTION = CONFIG.TESTPORTION;
 
 sizeofdataLists = length(dataLists);
 result = cell(sizeofdataLists,1);
-
-
-
-
 
 for k = 1:sizeofdataLists
     

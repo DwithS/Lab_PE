@@ -1,0 +1,24 @@
+%% KH feature selection
+
+
+%% Initialize
+clc
+clear all
+warning off all
+
+%% Initialize parallel enviroment
+% p = gcp('nocreate'); % If no pool, do not create new one.
+% if isempty(p)
+%      p = parpool(feature('numcores')); 
+%     
+% else
+%     delete(p);
+%      p = parpool(feature('numcores')); 
+% end
+%% Load datafile
+
+Data = struct;
+
+dataFileLists = getDataLists('data');
+
+Data.name = 

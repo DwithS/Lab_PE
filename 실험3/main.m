@@ -23,7 +23,7 @@ end
 dataFileLists = getDataLists('data');
 sizeofdataLists = 1;
 
-sizeofdataLists = lcsave(char('result_'+string(year(starttime)) +string(month(starttime))+string(day(starttime))),'result');ength(dataFileLists);
+% sizeofdataLists = lcsave(char('result_'+string(year(starttime)) +string(month(starttime))+string(day(starttime))),'result');ength(dataFileLists);
 
 % Load 나 Gen 밖에 안된다. 딴거 쓰면 에러남
 % sequence = Sequence('Load',dataFileLists);
